@@ -1,0 +1,65 @@
+{
+  "name": "poppy-gateway",
+  "version": "0.1.0",
+  "description": "Company-side implementation of the Personal Agent Protocol (Poppy) draft 0.1: discovery, OAuth and DPoP token issuance, direct, device and mediated sign-in, scope enforcement, browser sessions and conversations. Framework-agnostic, Request/Response based.",
+  "license": "Apache-2.0",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./agent": {
+      "types": "./dist/agent/index.d.ts",
+      "import": "./dist/agent/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "demo": "tsx examples/northwind/server.ts",
+    "demo:agent": "tsx examples/northwind/agent.ts"
+  },
+  "keywords": [
+    "poppy",
+    "personal-agent-protocol",
+    "oauth",
+    "dpop",
+    "mcp",
+    "agents",
+    "sierra"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sirwilliamiv/poppy-gateway.git"
+  },
+  "homepage": "https://origin-platform-labs.netlify.app/poppy/",
+  "dependencies": {
+    "jose": "^6.2.12"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@hono/node-server": "^2.1.5",
+    "@types/node": "^22.0.0",
+    "eslint": "^10.12.0",
+    "hono": "^4.13.13",
+    "jiti": "^2.7.0",
+    "tsx": "^4.23.15",
+    "typescript": "^5.9.0",
+    "typescript-eslint": "^8.71.2",
+    "vitest": "^3.2.0"
+  }
+}
