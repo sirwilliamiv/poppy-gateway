@@ -84,6 +84,22 @@ npm run demo:agent    # in another terminal: a personal agent walks through disc
 
 The demo company exposes all three sign-in types, a consent page, a device verification page, an orders API, a website page that honors the browser session cookie, and a company agent. Open the direct sign-in URL the agent prints to try the consent flow in a browser.
 
+## Talk to our agent
+
+Origin Platform Labs runs this gateway in production as its own front door. Point a Poppy agent at `origin-platform-labs.netlify.app` and a company agent will scope an engagement, quote from the public catalog, and hand a proposal to a person. No sign-in is needed to negotiate.
+
+```ts
+import { PoppyAgent, generateAgentKeys } from 'poppy-gateway/agent';
+
+const agent = new PoppyAgent({ clientId: 'https://you.example/agent.json', clientName: 'Your agent', keys: await generateAgentKeys() });
+const company = await agent.discover('origin-platform-labs.netlify.app');
+const session = await agent.session(company, 'user_123');
+await session.start();
+const started = await session.startConversation({ sender: 'agent', text: 'We need Poppy for our customers. Budget around $80k.' }, { wait: 10 });
+```
+
+Conversations endpoint: `https://poppy-agent-951611905723.us-central1.run.app/poppy/conversations`. The hosted service is `hosted/` in this repo: the gateway with rate limits on, an abuse guard (`createGuard`), and a negotiating handler whose prices come from code, never from the model. Every control in the security view has a test in `test/security-library.test.ts` and `test/hosted/security.test.ts`.
+
 ## Wiring it into an existing stack
 
 - **Identity provider:** session tokens are OAuth access tokens and account tokens are refresh tokens. The gateway issues them itself and verifies the user with your existing login inside `onAuthorize`, `onVerify`, or `verify`. Your IdP never needs to learn DPoP.

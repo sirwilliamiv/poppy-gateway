@@ -231,4 +231,6 @@ export type AuditEvent =
   | { type: 'conversation.started'; conversationId: string; clientId: string; userId: string }
   | { type: 'conversation.closed'; conversationId: string }
   | { type: 'conversation.handoff'; conversationId: string }
-  | { type: 'mediated.attempt'; sessionId: string; outcome: string };
+  | { type: 'mediated.attempt'; sessionId: string; outcome: string }
+  | { type: 'guard.refused'; conversationId: string; clientId: string; verdict: string; flags: string[] }
+  | { type: 'guard.flagged'; conversationId: string; clientId: string; flags: string[] };

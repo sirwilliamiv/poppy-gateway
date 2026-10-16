@@ -34,3 +34,4 @@ export { approveDevice, denyDevice, normalizeUserCode } from './device.js';
 export { oneTimeCode } from './mediated.js';
 export { disconnectAgent } from './revoke.js';
 export { randomId, randomToken, sha256b64url, stableStringify } from './ids.js';
+export { createGuard, injectionFlags, GuardVerdict, GuardRefusal, InjectionFlag, InjectionPattern, type GuardOptions, type ConversationGuard, type GuardRefusalVerdict } from './guard.js';
